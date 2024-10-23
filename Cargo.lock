@@ -1531,6 +1531,7 @@ name = "ubi-tester"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "tempfile",
  "tokio",
  "ubi",
 ]
