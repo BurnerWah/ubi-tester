@@ -6,8 +6,11 @@ struct Cli {
     project: Vec<String>,
 }
 
-fn main() {
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
     println!("projects: {:?}", cli.project);
+
+    Ok(())
 }
