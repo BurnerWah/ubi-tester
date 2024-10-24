@@ -48,7 +48,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             match ubi.install_binary().await {
                 Ok(()) => println!("  Success"),
-                Err(err) => eprintln!("  Error: {}", err),
+                Err(err) => println!("  Error: {}", err),
             };
         }
 
