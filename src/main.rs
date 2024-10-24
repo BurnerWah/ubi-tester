@@ -10,6 +10,9 @@ struct Cli {
 
     #[arg(short, long, help = "Keep temporary directory for build artifacts")]
     keep_temp: bool,
+
+    #[arg(short, long, help = "The name of the binary to look for")]
+    name: Option<String>,
 }
 
 #[tokio::main]
@@ -45,11 +48,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         for target in targets.iter().flatten() {
             print!("Platform: {}", target.target_triple);
-            let ubi = UbiBuilder::new()
+
+            let builder = UbiBuilder::new()
                 .project(project)
                 .platform(target)
-                .install_dir(temp_dir.path().join(target.target_triple).to_path_buf())
-                .build()?;
+                .install_dir(temp_dir.path().join(target.target_triple).to_path_buf());
+
+            let ubi = match cli.name {
+                Some(ref name) => builder.exe(&name).build()?,
+                None => builder.build()?,
+            };
 
             match ubi.install_binary().await {
                 Ok(()) => println!("  Success"),
