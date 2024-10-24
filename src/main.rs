@@ -16,8 +16,6 @@ struct Cli {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    println!("projects: {:?}", cli.project);
-
     // I skipped armv6 because it's not actually being built
     let targets = vec![
         Platform::find("x86_64-apple-darwin"),          // macos-x64
@@ -39,7 +37,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         // This will get deleted when it goes out of scope
         let temp_dir = TempDir::with_prefix("ubi-tester-")?;
-        println!("Temp dir: {}", temp_dir.path().display());
 
         for target in targets.iter().flatten() {
             print!("Platform: {}", target.target_triple);
@@ -55,6 +52,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             };
         }
 
+        // Retain the temporary directory for checking the actual files, if requested
         if cli.keep_temp {
             println!("Temp directory kept: {}", temp_dir.into_path().display());
         }
