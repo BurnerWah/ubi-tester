@@ -30,6 +30,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Platform::find("aarch64-pc-windows-msvc"),
         Platform::find("riscv64gc-unknown-linux-gnu"),
         Platform::find("riscv64gc-unknown-linux-musl"),
+        Platform::find("powerpc-unknown-linux-gnu"),
+        Platform::find("powerpc64-unknown-linux-gnu"),
+        Platform::find("powerpc64le-unknown-linux-gnu"),
+        Platform::find("x86_64-unknown-freebsd"),
+        Platform::find("x86_64-unknown-netbsd"),
     ];
 
     for project in cli.project.iter() {
