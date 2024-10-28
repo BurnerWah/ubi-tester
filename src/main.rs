@@ -54,7 +54,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .platform(target)
                 .install_dir(temp_dir.path().join(target.target_triple).to_path_buf());
 
-            let ubi = match cli.name {
+            let mut ubi = match cli.name {
                 Some(ref name) => builder.exe(&name).build()?,
                 None => builder.build()?,
             };
